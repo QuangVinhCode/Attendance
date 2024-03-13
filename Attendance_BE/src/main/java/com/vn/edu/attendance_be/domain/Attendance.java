@@ -17,11 +17,11 @@ import java.util.Date;
 public class Attendance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long attendanceID;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "classID")
-    private Class aClass;
+    private Class classes;
 
     @Column(name = "date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)

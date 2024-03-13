@@ -1,5 +1,6 @@
 package com.vn.edu.attendance_be.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import lombok.Setter;
 public class User {
     @Id
     @Column(name = "userID", nullable = false)
-    private Long userID;
+    private Long id;
 
     @Column(name = "username", nullable = false, length = 100)
     private String username;
@@ -26,10 +27,9 @@ public class User {
     @Column(name = "role", nullable = false, length = 100)
     private String role;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Student student;
-
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "teacher_id", referencedColumnName = "id")
+    @JsonIgnore
     private Teacher teacher;
-    // Getters and setters
+
 }

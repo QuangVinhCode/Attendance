@@ -19,24 +19,19 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long studentID;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "userID")
-    private User user;
+    private Long id;
 
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @Column(name = "studentCode", nullable = false, length = 100)
-    private String studentCode;
 
     @Column(name = "email", nullable = false, length = 100)
     private String email;
 
-    @ManyToOne
-    @JoinColumn(name = "classID")
-    private Class aClass;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<StudentJoinClass> studentList;
 
     @OneToMany(mappedBy = "student")
     @JsonIgnore

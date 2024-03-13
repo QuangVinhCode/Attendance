@@ -18,7 +18,7 @@ import java.util.List;
 public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long teacherID;
+    private Long id;
 
     @Column(name = "name", nullable = false, length = 100)
     private String name;
@@ -26,12 +26,16 @@ public class Teacher {
     @Column(name = "email", nullable = false, length = 100)
     private String email;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "userID")
+    @OneToOne(mappedBy = "teacher")
     private User user;
 
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Class> classList;
+
+    public void setUserById(Long userId) {
+        this.user = new User();
+        this.user.setId(userId);
+    }
 
 }

@@ -18,20 +18,22 @@ import java.util.List;
 public class Class {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long classID;
+    private Long id;
+
     @Column(name = "className", nullable = false, length = 100)
     private String className;
 
     @ManyToOne
-    @JoinColumn(name = "teacherID")
+    @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-    @OneToMany(mappedBy = "aClass")
+    @OneToMany(mappedBy = "classes", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Attendance> attendanceList;
 
-    @OneToMany(mappedBy = "aClass")
+    @OneToMany(mappedBy = "aclass", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<Student> studentList;
+    private List<StudentJoinClass> studentList;
+
 
 }
