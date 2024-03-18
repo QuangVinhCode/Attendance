@@ -1,15 +1,22 @@
 package com.vn.edu.attendance_be.dto;
 
-import lombok.Value;
+import com.vn.edu.attendance_be.domain.Attendance_Student;
+import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
 
 /**
- * DTO for {@link com.vn.edu.attendance_be.domain.Attendance}
+ * DTO for {@link Attendance_Student}
  */
-@Value
+@Data
 public class AttendanceDto implements Serializable {
-    Date date;
-    boolean status;
+
+
+
+    List<StudentDto> studentList;
+
+    Long class_id;
+
+    String name;
 }
