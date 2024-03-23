@@ -12,11 +12,8 @@ import java.util.List;
 @Data
 public class AttendanceDto implements Serializable {
 
-
-
-    List<StudentDto> studentList;
-
     Long class_id;
 
     String name;
+
 }

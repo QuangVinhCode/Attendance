@@ -16,6 +16,7 @@ export default class AuthService {
     }
 
     static logout() {
+        localStorage.removeItem("classdata");
         return localStorage.removeItem(KEY_LOCAL);
     }
 

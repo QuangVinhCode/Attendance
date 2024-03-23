@@ -13,8 +13,11 @@ import com.vn.edu.attendance_be.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class StudentService {
@@ -27,7 +30,21 @@ public class StudentService {
 
         Student entity = new Student();
 
-        entity.setId(dto.getId());
+        Random random = new Random();
+        // Tạo ID ngẫu nhiên trong khoảng từ 1 đến 9999
+        int randomId = random.nextInt(9999) + 1;
+
+        // Lấy thời gian hiện tại
+        LocalDateTime currentTime = LocalDateTime.now();
+
+        // Định dạng thời gian với giờ, phút, giây
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+
+        // Ghép số ngẫu nhiên với thời gian hiện tại
+        String finalId = randomId + currentTime.format(formatter);
+
+        Long id = Long.parseLong(finalId);
+        entity.setId(id);
         entity.setName(dto.getName());
         entity.setEmail(dto.getEmail());
 

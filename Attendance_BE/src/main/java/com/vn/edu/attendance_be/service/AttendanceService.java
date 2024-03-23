@@ -6,11 +6,14 @@ import com.vn.edu.attendance_be.domain.Attendance;
 import com.vn.edu.attendance_be.domain.Class;
 import com.vn.edu.attendance_be.dto.AttendanceDto;
 import com.vn.edu.attendance_be.repository.AttendanceRepository;
+import com.vn.edu.attendance_be.repository.ClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AttendanceService {
@@ -18,21 +21,34 @@ public class AttendanceService {
     @Autowired
     private AttendanceRepository attendanceRepository;
 
+    @Autowired
+    private ClassRepository classRepository;
+
     public Attendance save(AttendanceDto dto) {
 
         Date currentDate = new Date();
         Attendance attendance = new Attendance();
-        Class aClass = new Class();
-        aClass.setId(dto.getClass_id());
-        attendance.setAClass(aClass);
+        Optional<Class> aClass = classRepository.findById(dto.getClass_id());
+        Class a = new Class();
+        a.setId(aClass.get().getId());
+        attendance.setAClass(a);
         attendance.setDate(currentDate);
         attendance.setName(dto.getName());
 
         return attendanceRepository.save(attendance);
     }
 
-    public List<Attendance> findAll() {
-        return attendanceRepository.findAll();
+    public List<Attendance> findAll(Long id) {
+        List<Attendance> list = new ArrayList<>();
+        Optional<Class> aClass = classRepository.findById(id);
+        for (Attendance a : attendanceRepository.findAll())
+        {
+            if (a.getAClass().getId().equals(aClass.get().getId()))
+            {
+                list.add(a);
+            }
+        }
+        return list;
     }
 
 }

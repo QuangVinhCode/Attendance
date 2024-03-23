@@ -6,6 +6,7 @@ import com.vn.edu.attendance_be.domain.Student;
 import com.vn.edu.attendance_be.domain.StudentJoinClass;
 import com.vn.edu.attendance_be.dto.ClassDto;
 import com.vn.edu.attendance_be.dto.StudentDto;
+import com.vn.edu.attendance_be.repository.ClassRepository;
 import com.vn.edu.attendance_be.service.ClassService;
 import com.vn.edu.attendance_be.service.MapValidationErrorService;
 import com.vn.edu.attendance_be.service.StudentJoinClassService;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -33,6 +35,8 @@ public class StudentController {
 
     @Autowired
     MapValidationErrorService mapValidationErrorService;
+    @Autowired
+    private ClassRepository classRepository;
 
 
     @PostMapping
@@ -78,7 +82,8 @@ public class StudentController {
 
     @GetMapping("/class/{id}")
     public ResponseEntity<?> getStudentsByClass(@PathVariable("id") Long id){
-        List<StudentJoinClass> studentJoinClassList = studentService.findAllByClass(id);
+        Optional<Class> aClass = classRepository.findById(id);
+        List<StudentJoinClass> studentJoinClassList = studentService.findAllByClass(aClass.get().getId());
 
         List<Student> students = new ArrayList<>();
         for (StudentJoinClass a : studentJoinClassList)

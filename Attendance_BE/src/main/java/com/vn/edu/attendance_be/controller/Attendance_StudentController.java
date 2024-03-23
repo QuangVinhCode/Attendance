@@ -4,10 +4,9 @@ package com.vn.edu.attendance_be.controller;
 import com.vn.edu.attendance_be.domain.Attendance;
 import com.vn.edu.attendance_be.domain.Attendance_Student;
 import com.vn.edu.attendance_be.dto.AttendanceDto;
-import com.vn.edu.attendance_be.dto.ClassDto;
+import com.vn.edu.attendance_be.dto.Attendance_StudentDto;
 import com.vn.edu.attendance_be.service.AttendanceService;
 import com.vn.edu.attendance_be.service.Attendance_StudentService;
-import com.vn.edu.attendance_be.service.ClassService;
 import com.vn.edu.attendance_be.service.MapValidationErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,25 +15,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/api/v1/attendances")
-public class AttendanceController {
-    @Autowired
-    AttendanceService attendanceService;
-
+@RequestMapping("/api/v1/attendances_students")
+public class Attendance_StudentController {
     @Autowired
     Attendance_StudentService attendanceStudentService;
 
     @Autowired
     MapValidationErrorService mapValidationErrorService;
-
-
     @PostMapping
-    public ResponseEntity<?> createAttendance(@Validated @RequestBody AttendanceDto dto, BindingResult result){
+    public ResponseEntity<?> createAttendance(@Validated @RequestBody Attendance_StudentDto dto, BindingResult result){
 
        ResponseEntity<?> responseEntity = mapValidationErrorService.mapValidationFields(result);
 
@@ -43,13 +35,11 @@ public class AttendanceController {
            return responseEntity;
        }
 
-        Attendance attendance =  attendanceService.save(dto);
+
+
+        Attendance_Student attendance =  attendanceStudentService.save(dto);
 
         return new ResponseEntity<>(attendance, HttpStatus.CREATED);
-    }
-    @PatchMapping("/class/{id}")
-    public ResponseEntity<?> getAttendances(@PathVariable("id") Long id){
-        return new ResponseEntity<>(attendanceService.findAll(id),HttpStatus.OK);
     }
     @PatchMapping("/attendance/{id}")
     public ResponseEntity<?> getStudentByAttendance(@PathVariable("id") Long id){

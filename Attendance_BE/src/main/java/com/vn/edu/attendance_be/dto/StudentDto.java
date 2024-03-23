@@ -15,6 +15,4 @@ public class StudentDto implements Serializable {
     String name;
     String email;
     Long class_id;
-
-    boolean status;
 }
