@@ -35,11 +35,8 @@ public class Attendance_StudentController {
            return responseEntity;
        }
 
-
-
         Attendance_Student attendance =  attendanceStudentService.save(dto);
-
-        return new ResponseEntity<>(attendance, HttpStatus.CREATED);
+        return new ResponseEntity<>( dto, HttpStatus.CREATED);
     }
     @PatchMapping("/attendance/{id}")
     public ResponseEntity<?> getStudentByAttendance(@PathVariable("id") Long id){

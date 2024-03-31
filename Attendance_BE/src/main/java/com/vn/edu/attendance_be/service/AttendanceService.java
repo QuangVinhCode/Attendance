@@ -39,16 +39,12 @@ public class AttendanceService {
     }
 
     public List<Attendance> findAll(Long id) {
-        List<Attendance> list = new ArrayList<>();
-        Optional<Class> aClass = classRepository.findById(id);
-        for (Attendance a : attendanceRepository.findAll())
-        {
-            if (a.getAClass().getId().equals(aClass.get().getId()))
-            {
-                list.add(a);
-            }
-        }
-        return list;
+
+        return attendanceRepository.findByaClass_Id(id);
+    }
+
+    public List<Attendance> findAllByStudent(String id) {
+        return attendanceRepository.findByAttendanceStudents_Student_Id(id);
     }
 
 }

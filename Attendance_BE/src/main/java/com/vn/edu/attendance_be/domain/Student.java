@@ -19,7 +19,7 @@ public class Student {
 
     @Id
     @Column(name = "studentID", nullable = false)
-    private Long id;
+    private String id;
 
     @Column(name = "name", nullable = false, length = 100)
     private String name;
@@ -28,6 +28,8 @@ public class Student {
     @Column(name = "email", nullable = false, length = 100)
     private String email;
 
+    @OneToOne(mappedBy = "student")
+    private User user;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     @JsonIgnore

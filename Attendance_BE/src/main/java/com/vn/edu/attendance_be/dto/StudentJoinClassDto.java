@@ -12,5 +12,5 @@ import java.io.Serializable;
 public class StudentJoinClassDto implements Serializable {
     Long class_id;
 
-    Long student_id;
+    String student_id;
 }

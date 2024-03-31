@@ -8,6 +8,7 @@ import com.vn.edu.attendance_be.dto.Attendance_StudentDto;
 import com.vn.edu.attendance_be.dto.StudentDto;
 import com.vn.edu.attendance_be.exeception.ClassException;
 import com.vn.edu.attendance_be.repository.Attendance_StudentRepository;
+import com.vn.edu.attendance_be.repository.StudentJoinClassRepository;
 import com.vn.edu.attendance_be.repository.StudentRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,20 +27,12 @@ public class Attendance_StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public Attendance_Student save(Attendance_StudentDto dto) {
-        List<Student> studentList = studentRepository.findByStudentList_Aclass_Id(dto.getClass_id());
-        System.out.println("Do dai:" + studentList.toArray().length);
-        Student student = new Student();
-        for (Student a : studentList)
-        {
-            System.out.println(a.getId());
+    @Autowired
+    private StudentJoinClassRepository studentJoinClassRepository;
 
-            if (a.getId().equals(dto.getStudent_id()))
-            {
-                BeanUtils.copyProperties(a,student );
-            }
-        }
-        if (student.getId() == null)
+    public Attendance_Student save(Attendance_StudentDto dto) {
+        Optional<StudentJoinClass> existstudentclass = studentJoinClassRepository.findByAclass_IdAndStudent_Id(dto.getClass_id(), dto.getStudent_id());
+        if (existstudentclass.isEmpty())
         {
             throw new ClassException("Sinh viên không thuộc về lớp này!");
         }
@@ -49,7 +42,6 @@ public class Attendance_StudentService {
             throw new ClassException("Sinh viên đã từng được điểm danh!");
         }
         Attendance_Student attendance_student = new Attendance_Student();
-        attendance_student.setStatus(dto.isStatus());
         Student aStudent = new Student();
         aStudent.setId(dto.getStudent_id());
         attendance_student.setStudent(aStudent);
@@ -62,5 +54,6 @@ public class Attendance_StudentService {
     public List<Attendance_Student> findAllByAttendance(Long id) {
         return attendance_studentRepository.findByAttendance_Id(id);
     }
+
 
 }

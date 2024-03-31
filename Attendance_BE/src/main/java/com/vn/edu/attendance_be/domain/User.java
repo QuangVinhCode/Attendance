@@ -32,4 +32,9 @@ public class User {
     @JsonIgnore
     private Teacher teacher;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "student_id", referencedColumnName = "studentID")
+    @JsonIgnore
+    private Student student;
+
 }

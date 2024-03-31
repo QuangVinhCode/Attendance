@@ -8,4 +8,8 @@ import java.util.Optional;
 
 public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
 
+
+    List<Attendance> findByAttendanceStudents_Student_Id(String id);
+
+    List<Attendance> findByaClass_Id(Long id);
 }

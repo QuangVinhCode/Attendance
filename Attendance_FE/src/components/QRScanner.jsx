@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { QrReader } from "react-qr-reader";
-import AuthService, { URL_HTTP } from "../services/auth.service";
+import { URL_HTTP } from "../services/auth.service";
 import { useParams } from "react-router-dom";
 import Header from "../components/Header";
+
 import axios from "axios";
-const QRScanner = (props) => {
+const QRScanner = () => {
   const params = useParams();
   const storedClassSession = sessionStorage.getItem("classdata");
   const ClassSession = storedClassSession
@@ -31,11 +32,6 @@ const QRScanner = (props) => {
         attendance
       );
       console.log(response.data);
-      if (response.status === true) {
-        setResponseMessage("Điểm danh thành công");
-      } else {
-        setResponseMessage(response.message);
-      }
       setResponseMessage(response.message);
     } catch (error) {
       console.error(
@@ -48,11 +44,12 @@ const QRScanner = (props) => {
   return (
     <>
       <Header />
+      
       <div
         style={{
           width: 500,
           height: 500,
-          marginLeft: 500,
+          marginLeft: 400,
           justifyContent: "center",
         }}
         className=""

@@ -10,6 +10,7 @@ public interface Attendance_StudentRepository extends JpaRepository<Attendance_S
 
     List<Attendance_Student> findByAttendance_Id(Long id);
 
-    Optional<Attendance_Student> findByStudent_IdAndAttendance_Id(Long id, Long id1);
+    Optional<Attendance_Student> findByStudent_IdAndAttendance_Id(String id, Long id1 );
 
+    long countByAttendance_aClass_IdAndStudent_Id(Long id, String id1);
 }

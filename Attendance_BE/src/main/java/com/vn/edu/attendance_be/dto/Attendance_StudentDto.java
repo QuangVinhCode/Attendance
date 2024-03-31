@@ -9,8 +9,7 @@ import java.io.Serializable;
  */
 @Value
 public class Attendance_StudentDto implements Serializable {
-    Long student_id;
+    String student_id;
     Long attendance_id;
     Long class_id;
-    boolean status;
 }

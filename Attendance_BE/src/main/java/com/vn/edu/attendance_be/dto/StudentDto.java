@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 @Data
 public class StudentDto implements Serializable {
-    Long id;
+    String id;
     String name;
     String email;
     Long class_id;

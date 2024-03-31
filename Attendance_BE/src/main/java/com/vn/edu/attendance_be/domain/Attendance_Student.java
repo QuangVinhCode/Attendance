@@ -23,8 +23,6 @@ public class Attendance_Student {
     @JoinColumn(name = "attendanceId")
     private Attendance attendance;
 
-    @Column(name = "status", nullable = false, length = 100)
-    private boolean status;
 
     @ManyToOne
     @JoinColumn(name = "studentID")

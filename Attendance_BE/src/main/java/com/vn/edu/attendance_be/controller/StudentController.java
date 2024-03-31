@@ -62,7 +62,7 @@ public class StudentController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> updateStudent(@PathVariable("id") Long id, @RequestBody StudentDto dto){
+    public ResponseEntity<?> updateStudent(@PathVariable("id") String id, @RequestBody StudentDto dto){
 
         StudentJoinClass studentJoinClass = new StudentJoinClass();
         Student  student =  studentService.update(id,dto);
@@ -97,12 +97,12 @@ public class StudentController {
 
 
     @GetMapping("/{id}/get")
-    public  ResponseEntity<?> getStudent(@PathVariable("id") Long id){
+    public  ResponseEntity<?> getStudent(@PathVariable("id") String id){
         return new ResponseEntity<>(studentService.findById(id),HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteStudent(@PathVariable("id") Long id)
+    public ResponseEntity<?> deleteStudent(@PathVariable("id") String id)
     {
         Student student = studentService.findById(id);
         studentJoinClassService.deleteById(student);

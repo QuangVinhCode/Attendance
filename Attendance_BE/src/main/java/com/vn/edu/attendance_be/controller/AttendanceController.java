@@ -51,6 +51,11 @@ public class AttendanceController {
     public ResponseEntity<?> getAttendances(@PathVariable("id") Long id){
         return new ResponseEntity<>(attendanceService.findAll(id),HttpStatus.OK);
     }
+    @GetMapping("/student/{id}")
+    public ResponseEntity<?> getAttendancesByStudent(@PathVariable("id") String id){
+        return new ResponseEntity<>(attendanceService.findAllByStudent(id),HttpStatus.OK);
+    }
+
     @PatchMapping("/attendance/{id}")
     public ResponseEntity<?> getStudentByAttendance(@PathVariable("id") Long id){
         return new ResponseEntity<>(attendanceStudentService.findAllByAttendance(id),HttpStatus.OK);

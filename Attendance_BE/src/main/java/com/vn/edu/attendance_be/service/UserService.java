@@ -57,7 +57,6 @@ public class UserService {
         teacher.setEmail(dto.getEmail());
         Teacher anew = teacherRepository.save(teacher);
         entity.setTeacher(anew);
-
         return userRepository.save(entity);
     }
 

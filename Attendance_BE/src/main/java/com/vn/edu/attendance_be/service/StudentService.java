@@ -1,16 +1,16 @@
 package com.vn.edu.attendance_be.service;
 
+import com.vn.edu.attendance_be.domain.*;
 import com.vn.edu.attendance_be.domain.Class;
-import com.vn.edu.attendance_be.domain.Student;
-import com.vn.edu.attendance_be.domain.StudentJoinClass;
-import com.vn.edu.attendance_be.domain.Teacher;
 import com.vn.edu.attendance_be.dto.ClassDto;
 import com.vn.edu.attendance_be.dto.StudentDto;
 import com.vn.edu.attendance_be.exeception.ClassException;
 import com.vn.edu.attendance_be.repository.ClassRepository;
 import com.vn.edu.attendance_be.repository.StudentJoinClassRepository;
 import com.vn.edu.attendance_be.repository.StudentRepository;
+import com.vn.edu.attendance_be.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -23,6 +23,9 @@ import java.util.Random;
 public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private StudentJoinClassRepository studentJoinClass;
@@ -41,17 +44,28 @@ public class StudentService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 
         // Ghép số ngẫu nhiên với thời gian hiện tại
-        String finalId = randomId + currentTime.format(formatter);
+        String finalId = "DH" + randomId + currentTime.format(formatter);
 
-        Long id = Long.parseLong(finalId);
-        entity.setId(id);
+        entity.setId(finalId);
         entity.setName(dto.getName());
         entity.setEmail(dto.getEmail());
 
+        User user = new User();
+        String string_student_id=randomId + currentTime.format(formatter);
+        Long long_student_id=Long.parseLong(string_student_id);
+        user.setId(long_student_id);
+        user.setUsername(finalId);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        // Mã hóa mật khẩu
+        String hashedPassword = passwordEncoder.encode(finalId);
+        user.setPassword(hashedPassword);
+        user.setRole("Sinh viên");
+        user.setStudent(entity);
+        userRepository.save(user);
         return studentRepository.save(entity);
     }
 
-    public Student update(Long id,StudentDto entity) {
+    public Student update(String id,StudentDto entity) {
         Optional<Student> existed = studentRepository.findById(id);
         if(!existed.isPresent())
         {
@@ -77,7 +91,7 @@ public class StudentService {
         return studentJoinClass.findByAclass_Id(id);
     }
 
-    public Student findById(Long id) {
+    public Student findById(String id) {
         Optional<Student> found = studentRepository.findById(id);
 
         if (!found.isPresent())
@@ -87,7 +101,7 @@ public class StudentService {
         return found.get();
     }
 
-    public void  deleteById(Long id){
+    public void  deleteById(String id){
         Student existed = findById(id);
 
         studentRepository.delete(existed);

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { URL_HTTP } from "../services/auth.service";
 import CardAttendance from "../components/CardAttendance";
 import Header from "../components/Header";
+import ExcelFilePicker from "../components/ExcelFilePicker";
 import axios from "axios";
 
 import { useParams, useNavigate } from "react-router-dom";
@@ -19,8 +20,6 @@ const HomeClass = () => {
     } catch (error) {}
   };
 
-  console.log(attendances);
-
   useEffect(() => {
     getAttendance();
   }, []);
@@ -30,7 +29,7 @@ const HomeClass = () => {
   return (
     <>
       <Header />
-
+      <ExcelFilePicker id={params.id}/>
       <div className="flex flex-col  bg-gray-500 items-center min-h-screen justify-center">
         <div className="absolute  opacity-80  z-0"></div>
           <button style={{backgroundColor:"lavender",fontSize:40,borderRadius:10}} onClick={() => onPerFom()}>Tạo buổi điểm danh</button>
