@@ -28,5 +28,6 @@ export default class AuthService {
         const url = URL_HTTP + `/users/login/${email}/${password}`;
         const { data } = await axios.patch(url);
         AuthService.setProfile(data);
+        return data;
     }
 }

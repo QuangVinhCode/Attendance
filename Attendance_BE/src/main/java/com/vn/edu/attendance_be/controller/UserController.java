@@ -48,13 +48,13 @@ public class UserController {
     public ResponseEntity<?> updateUser(@PathVariable("id") Long id, @RequestBody UserDto dto){
         User  user =  userService.update(id,dto);
 
-        TeacherDto teacherDto = new TeacherDto();
-
-        teacherDto.setName(dto.getName());
-        teacherDto.setEmail(dto.getEmail());
-        teacherDto.setTeacher_id(user.getId());
-
-        teacherService.save(dto);
+//        TeacherDto teacherDto = new TeacherDto();
+//
+//        teacherDto.setName(dto.getName());
+//        teacherDto.setEmail(dto.getEmail());
+//        teacherDto.setTeacher_id(user.getId());
+//
+//        teacherService.save(dto);
 
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }

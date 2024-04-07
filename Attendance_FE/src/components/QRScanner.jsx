@@ -24,7 +24,6 @@ const QRScanner = () => {
       student_id: data,
       attendance_id: params.id,
       class_id: ClassSession.classId,
-      status: true,
     };
     try {
       const response = await axios.post(
@@ -32,7 +31,7 @@ const QRScanner = () => {
         attendance
       );
       console.log(response.data);
-      setResponseMessage(response.message);
+      setResponseMessage("Thành công");
     } catch (error) {
       console.error(
         "Error occurred while posting data:" + error.response.data.message

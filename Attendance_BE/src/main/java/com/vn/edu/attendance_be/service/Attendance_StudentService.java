@@ -31,6 +31,9 @@ public class Attendance_StudentService {
     private StudentJoinClassRepository studentJoinClassRepository;
 
     public Attendance_Student save(Attendance_StudentDto dto) {
+        System.out.println(dto.getStudent_id());
+        System.out.println(dto.getAttendance_id());
+        System.out.println(dto.getClass_id());
         Optional<StudentJoinClass> existstudentclass = studentJoinClassRepository.findByAclass_IdAndStudent_Id(dto.getClass_id(), dto.getStudent_id());
         if (existstudentclass.isEmpty())
         {

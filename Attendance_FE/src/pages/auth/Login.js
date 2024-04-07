@@ -9,7 +9,12 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await AuthService.Login(user.email, user.password);
+            const data = await AuthService.Login(user.email, user.password);
+            console.log(data);
+            if (data.role === "Quản trị viên")
+            {
+                return navigate("/dashboard/*");
+            }
             return navigate("/");
         } catch (error) {
             alert("login thất bại");

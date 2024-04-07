@@ -1,7 +1,9 @@
 package com.vn.edu.attendance_be.service;
 
+import com.vn.edu.attendance_be.domain.Class;
 import com.vn.edu.attendance_be.domain.Student;
 import com.vn.edu.attendance_be.domain.StudentJoinClass;
+import com.vn.edu.attendance_be.dto.StudentJoinClassDto;
 import com.vn.edu.attendance_be.exeception.ClassException;
 import com.vn.edu.attendance_be.repository.StudentJoinClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,12 @@ public class StudentJoinClassService {
     @Autowired
     private StudentJoinClassRepository studentJoinClassRepository;
 
-    public StudentJoinClass save(StudentJoinClass entity) {
+    public StudentJoinClass save(StudentJoinClassDto dto) {
+        StudentJoinClass entity = new StudentJoinClass();
+        Class aClass = new Class();
+        Student student = new Student();
+        aClass.setId(dto.getClass_id());
+        student.setId(dto.getStudent_id());
         return studentJoinClassRepository.save(entity);
     }
 
@@ -30,9 +37,9 @@ public class StudentJoinClassService {
         }
         return found.get();
     }
-    public void  deleteById(Student student){
-
-        studentJoinClassRepository.deleteByStudent(student);
+    public void  deleteById(Long id){
+        StudentJoinClass exit = findById(id);
+        studentJoinClassRepository.delete(exit);
 
     }
 }

@@ -5,6 +5,7 @@ package com.vn.edu.attendance_be.service;
 import com.vn.edu.attendance_be.domain.Attendance;
 import com.vn.edu.attendance_be.domain.Class;
 import com.vn.edu.attendance_be.dto.AttendanceDto;
+import com.vn.edu.attendance_be.exeception.ClassException;
 import com.vn.edu.attendance_be.repository.AttendanceRepository;
 import com.vn.edu.attendance_be.repository.ClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,4 +48,19 @@ public class AttendanceService {
         return attendanceRepository.findByAttendanceStudents_Student_Id(id);
     }
 
+    public Attendance findById(Long id) {
+        Optional<Attendance> found = attendanceRepository.findById(id);
+
+        if (!found.isPresent())
+        {
+            throw new ClassException("Buổi điểm danh có id "+ id + "không tồn tại");
+        }
+        return found.get();
+    }
+
+    public void  deleteById(Long id){
+        Attendance existed = findById(id);
+
+        attendanceRepository.delete(existed);
+    }
 }

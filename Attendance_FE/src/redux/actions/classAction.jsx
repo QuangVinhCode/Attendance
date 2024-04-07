@@ -1,4 +1,4 @@
-import ClassService from "../../services/classService";
+import ClassService from "../services/classService";
 import {
   CLASSES_SET,
   CLASS_DELETE,
@@ -222,6 +222,6 @@ export const clearClassState = () => (dispatch) => {
 export const clearClass = () => (dispatch) => {
   dispatch({
     type: CLASS_SET,
-    payload: { id: "", classname: "" },
+    payload: { id: "", className: "" ,teacher_id:""},
   });
 };

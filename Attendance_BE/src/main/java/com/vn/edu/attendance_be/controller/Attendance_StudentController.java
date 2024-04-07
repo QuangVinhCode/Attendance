@@ -42,4 +42,6 @@ public class Attendance_StudentController {
     public ResponseEntity<?> getStudentByAttendance(@PathVariable("id") Long id){
         return new ResponseEntity<>(attendanceStudentService.findAllByAttendance(id),HttpStatus.OK);
     }
+
+
 }
