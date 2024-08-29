@@ -24,7 +24,7 @@ const HomeClass = () => {
     getAttendance();
   }, []);
   const onPerFom = () => {
-    navigate("/create");
+    navigate("/create-attendance/" + params.id);
   };
   return (
     <>

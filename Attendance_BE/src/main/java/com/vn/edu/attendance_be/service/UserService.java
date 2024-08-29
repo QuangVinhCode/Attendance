@@ -3,6 +3,7 @@ package com.vn.edu.attendance_be.service;
 import com.vn.edu.attendance_be.domain.Teacher;
 import com.vn.edu.attendance_be.domain.User;
 import com.vn.edu.attendance_be.dto.UserDto;
+import com.vn.edu.attendance_be.dto.UserInfoDto;
 import com.vn.edu.attendance_be.exeception.ClassException;
 import com.vn.edu.attendance_be.repository.TeacherRepository;
 import com.vn.edu.attendance_be.repository.UserRepository;
@@ -51,7 +52,7 @@ public class UserService {
         entity.setId(id);
         entity.setUsername(dto.getUsername());
         entity.setPassword(hashedPassword);
-        entity.setRole("Giáo viên");
+        entity.setRole(dto.getRole());
         Teacher teacher = new Teacher();
         teacher.setName(dto.getName());
         teacher.setEmail(dto.getEmail());
@@ -71,6 +72,16 @@ public class UserService {
         if (!found.isPresent())
         {
             throw new ClassException("Tài khoản có id "+ id + "không tồn tại");
+        }
+        return found.get();
+    }
+
+    public UserInfoDto findStudentInfoDto(String username) {
+        Optional<UserInfoDto> found = userRepository.findUserInfoById(username);
+
+        if (!found.isPresent())
+        {
+            throw new ClassException("Sinh viên "+ username + " không tồn tại");
         }
         return found.get();
     }

@@ -8,3 +8,5 @@ export const COMMON_MESSAGE_SET = 'COMMON_MESSAGE_SET';
 export const COMMON_LOADING_SET = 'COMMON_LOADING_SET';
 
 export const TEACHERS_SET = 'TEACHERS_SET';
+
+export const STUDENT_SET = 'TEACHERS_SET';

@@ -69,6 +69,11 @@ public class UserController {
         return new ResponseEntity<>(userService.findById(id),HttpStatus.OK);
     }
 
+    @GetMapping("/student-info/{id}")
+    public  ResponseEntity<?> getStudentInfoDto(@PathVariable("id") String id){
+        return new ResponseEntity<>(userService.findStudentInfoDto(id),HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable("id") Long id)
     {

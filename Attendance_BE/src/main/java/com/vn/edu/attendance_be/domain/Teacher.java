@@ -21,7 +21,7 @@ public class Teacher {
     private Long id;
 
     @Column(name = "name", nullable = false, length = 100)
-    private String name;
+                private String name;
 
     @Column(name = "email", nullable = false, length = 100)
     private String email;
