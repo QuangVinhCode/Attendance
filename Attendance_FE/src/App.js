@@ -12,6 +12,7 @@ import store from "./redux/store";
 import DashboardPage from "./pages/DashboardPage";
 import CreateAttendance from "./components/CreateAttendance";
 import UserAccount from "./components/UserAccount";
+import ClassDetail from "./components/ClassDetail";
 
 function App() {
   return (
@@ -22,8 +23,12 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/class/:id" element={<HomeClass />} />
             <Route path="/attendance/:id" element={<QRScanner />} />
-            <Route path="/create-attendance/:id" element={<CreateAttendance />} />
+            <Route
+              path="/create-attendance/:id"
+              element={<CreateAttendance />}
+            />
             <Route path="/user-info/:id" element={<UserAccount />} />
+
             <Route path="/dashboard/*" element={<DashboardPage />} />
           </Route>
           <Route element={<PublicRoute />}>

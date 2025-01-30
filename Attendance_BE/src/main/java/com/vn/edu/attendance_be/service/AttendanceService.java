@@ -48,6 +48,10 @@ public class AttendanceService {
         return attendanceRepository.findByAttendanceStudents_Student_Id(id);
     }
 
+    public List<?> findAttendanceInfoByStudentAndClass(String idStudent,Long idClass) {
+        return attendanceRepository.findAttendanceInfoByStudentAndClass(idStudent,idClass);
+    }
+
     public Attendance findById(Long id) {
         Optional<Attendance> found = attendanceRepository.findById(id);
 

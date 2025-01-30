@@ -14,6 +14,9 @@ export default class ClassService {
   getClass = async (id) => {
     return await axios.get(API_CLASS + "/" + id + "/get");
   };
+  getClassByStudent = async (id) => {
+    return await axios.get(API_CLASS + "/student/" + id);
+  };
   updateClass = async (id, object) => {
     return await axios.patch(API_CLASS + "/" + id, object);
   };

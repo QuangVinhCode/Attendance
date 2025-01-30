@@ -8,10 +8,8 @@ import { Avatar, Col, Layout, Menu, Row, message } from "antd";
 import React, { useEffect, useState } from "react";
 import {
   MdAddCircleOutline,
-  MdChat,
   MdClass,
   MdFormatListBulleted,
-  MdGames,
   MdLogout,
   MdOutlineHome,
   MdOutlinePlayLesson,

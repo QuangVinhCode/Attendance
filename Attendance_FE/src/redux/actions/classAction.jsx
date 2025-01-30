@@ -89,6 +89,42 @@ export const getClasses = () => async (dispatch) => {
   });
 };
 
+export const getClassesByStudent = (id) => async (dispatch) => {
+  const service = new ClassService();
+
+  try {
+    console.log("Danh sách lớp");
+    dispatch({
+      type: COMMON_LOADING_SET,
+      payload: true,
+    });
+    const response = await service.getClassByStudent(id);
+    console.log(response);
+    if (response.status === 200) {
+      dispatch({
+        type: CLASSES_SET,
+        payload: response.data,
+      });
+    } else {
+      dispatch({
+        type: COMMON_ERROR_SET,
+        payload: response.message,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: COMMON_ERROR_SET,
+      payload: error.response.data
+        ? error.response.data.message
+        : error.message,
+    });
+  }
+  dispatch({
+    type: COMMON_LOADING_SET,
+    payload: false,
+  });
+};
+
 export const deleteClass = (id) => async (dispatch) => {
   const service = new ClassService();
 

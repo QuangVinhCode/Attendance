@@ -66,6 +66,7 @@ public class ClassService {
         return classRepository.findAll();
     }
 
+
     public List<Class> findAllByStudent(String id) {
         return classRepository.findByStudentList_Student_Id(id);
     }

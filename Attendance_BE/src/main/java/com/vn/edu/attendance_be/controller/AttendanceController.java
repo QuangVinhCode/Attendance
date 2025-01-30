@@ -4,6 +4,7 @@ package com.vn.edu.attendance_be.controller;
 import com.vn.edu.attendance_be.domain.Attendance;
 import com.vn.edu.attendance_be.domain.Attendance_Student;
 import com.vn.edu.attendance_be.dto.AttendanceDto;
+import com.vn.edu.attendance_be.dto.AttendanceStudentDto;
 import com.vn.edu.attendance_be.dto.ClassDto;
 import com.vn.edu.attendance_be.service.AttendanceService;
 import com.vn.edu.attendance_be.service.Attendance_StudentService;
@@ -54,6 +55,11 @@ public class AttendanceController {
     @GetMapping("/student/{id}")
     public ResponseEntity<?> getAttendancesByStudent(@PathVariable("id") String id){
         return new ResponseEntity<>(attendanceService.findAllByStudent(id),HttpStatus.OK);
+    }
+
+    @GetMapping("/attendance-info/{id}/{sv}")
+    public ResponseEntity<?> getAttendanceInfoByStudentAndClass(@PathVariable("id") Long id,@PathVariable("sv") String sv){
+        return new ResponseEntity<>(attendanceService.findAttendanceInfoByStudentAndClass(sv, id),HttpStatus.OK);
     }
 
     @PatchMapping("/attendance/{id}")

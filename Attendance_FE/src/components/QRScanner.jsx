@@ -5,19 +5,13 @@ import { useParams } from "react-router-dom";
 import Header from "../components/Header";
 
 import axios from "axios";
+import { message } from "antd";
 const QRScanner = () => {
   const params = useParams();
   const storedClassSession = sessionStorage.getItem("classdata");
   const ClassSession = storedClassSession
     ? JSON.parse(storedClassSession)
     : null;
-  const [responseMessage, setResponseMessage] = useState("");
-  useEffect(() => {
-    if (responseMessage) {
-      alert(responseMessage);
-      setResponseMessage("");
-    }
-  }, [responseMessage]);
 
   const postDataToService = async (data) => {
     const attendance = {
@@ -31,19 +25,19 @@ const QRScanner = () => {
         attendance
       );
       console.log(response.data);
-      setResponseMessage("Thành công");
+      message.success("Thành công");
     } catch (error) {
       console.error(
         "Error occurred while posting data:" + error.response.data.message
       );
-      setResponseMessage(error.response.data.message);
+      message.warning(error.response.data.message);
     }
   };
 
   return (
     <>
       <Header />
-      
+
       <div
         style={{
           width: 500,
@@ -65,7 +59,6 @@ const QRScanner = () => {
           }}
           resolution={1200}
         />
-        <p>{responseMessage}</p>
       </div>
     </>
   );
